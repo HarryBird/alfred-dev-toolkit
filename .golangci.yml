@@ -1,0 +1,37 @@
+linters-settings:
+  staticcheck:
+    checks = ["all", "-ST1000", "-ST1003", "-ST1016", "-S2023"]
+  gocritic:
+    disabled-checks:
+      - ifElseChain 
+linters:
+  disable-all: true
+  enable:
+    - govet
+    - errcheck
+    - staticcheck 
+    - unused 
+    - gosimple
+    - structcheck
+    - varcheck 
+    - ineffassign
+    - deadcode
+    - typecheck
+    - goconst
+    - unconvert
+    - gofmt
+    - unparam
+    - gocritic
+  presets:
+    - bugs
+    - unused
+  fast: false
+output:
+  print-issued-lines: false
+run:
+  skip-dirs:
+    - test/testdata_etc
+    - pkg/golinters/goanalysis/(checker|passes)
+    - vendor
+  skip-files:
+    - ".*_test\\.go$"
