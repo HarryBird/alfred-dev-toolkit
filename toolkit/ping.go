@@ -20,6 +20,7 @@ func PingAction(ctx *cli.Context, al *alfred.Alfred) {
 		al.ResultAppend(alfred.NewItem(
 			"Invalid Host", "", "", "", "", "default", false, alfred.NewDefaultIcon(),
 		))
+		al.Output()
 		return
 	}
 
@@ -40,7 +41,7 @@ func PingAction(ctx *cli.Context, al *alfred.Alfred) {
 		ip := stats.IPAddr.String()
 		title := ip
 		rtt := "0 ms"
-		
+
 		if len(stats.Rtts) > 0 {
 			rtt = stats.Rtts[0].String()
 		} else {
