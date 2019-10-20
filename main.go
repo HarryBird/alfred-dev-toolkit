@@ -35,6 +35,14 @@ func main() {
 				toolkit.PingAction(ctx, al)
 			},
 		},
+		{
+			Name:        "time",
+			Usage:       "alfred-dev-toolkit time [timestamp | date]",
+			Description: "Time Parse",
+			Action: func(ctx *cli.Context) {
+				toolkit.TimeAction(ctx, al)
+			},
+		},
 	}
 
 	err = app.Run(os.Args)
