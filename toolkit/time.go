@@ -42,7 +42,7 @@ func TimeAction(ctx *cli.Context, al *alfred.Alfred) {
 			t, err = time.ParseInLocation("2006/01/02 15:04:05", it, t.Location())
 		// format: 1571549947.343234
 		//case regexp.MustCompile(`^[0-9]{1,10}\.*[0-9]*`).MatchString(it):
-		case regexp.MustCompile(`^[1-9]\d*\.\d*`).MatchString(it):
+		case regexp.MustCompile(`^[1-9][.\d]*`).MatchString(it):
 			parts := strings.Split(it, ".")
 			l := len(parts)
 			var sec, nsec int64
