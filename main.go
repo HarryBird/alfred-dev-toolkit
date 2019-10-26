@@ -43,6 +43,14 @@ func main() {
 				toolkit.TimeAction(ctx, al)
 			},
 		},
+		{
+			Name:        "ip",
+			Usage:       "alfred-dev-toolkit ip <address>",
+			Description: "IP Parse",
+			Action: func(ctx *cli.Context) {
+				toolkit.IPAction(ctx, al)
+			},
+		},
 	}
 
 	err = app.Run(os.Args)
