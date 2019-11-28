@@ -61,8 +61,7 @@ func IPAction(ctx *cli.Context, al *alfred.Alfred) {
 
 	if !isIPV4(ip) {
 		log.Println("Invalid IP Address:" + ip)
-		al.ResultAppend(alfred.NewErrorTitleItem("Invalid IP: "+ip, ""))
-		al.Output()
+		al.ResultAppend(alfred.NewErrorTitleItem("Invalid IP: "+ip, "")).Output()
 		return
 	}
 
@@ -74,110 +73,48 @@ func IPAction(ctx *cli.Context, al *alfred.Alfred) {
 
 	if len(errs) > 0 {
 		log.Println("IP API Fail:", url, errs)
-		al.ResultAppend(alfred.NewErrorTitleItem("IP API Fail: "+ip, errs[0].Error()))
-		al.Output()
+		al.ResultAppend(alfred.NewErrorTitleItem("IP API Fail: "+ip, errs[0].Error())).Output()
 		return
 	}
 
 	if response.StatusCode != 200 {
 		log.Println("IP API Fail:", url, response.Status)
-		al.ResultAppend(alfred.NewErrorTitleItem("IP API Fail: "+ip, response.Status))
-		al.Output()
+		al.ResultAppend(alfred.NewErrorTitleItem("IP API Fail: "+ip, response.Status)).Output()
 		return
 	}
 
 	if resp.Status != "success" {
 		log.Println("IP API Fail:", url, response.Status)
-		al.ResultAppend(alfred.NewErrorTitleItem("IP API Fail: "+ip, resp.Message))
-		al.Output()
+		al.ResultAppend(alfred.NewErrorTitleItem("IP API Fail: "+ip, resp.Message)).Output()
 		return
 	}
 
-	al.ResultAppend(alfred.NewItem(
-		"Query: "+ip,
-		"",
-		ip,
-		ip,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildIPItem("Query: "+ip, "", ip, ip))
 
 	locateSum := resp.Continent + ", " + resp.Country + ", " + resp.RegionName + ", " + resp.City + ", " + resp.District
 	locateDetail := resp.Continent + "/" + resp.ContinentCode + ", " + resp.Country + "/" + resp.CountryCode + ", " + resp.RegionName + "/" + resp.Region + ", " + resp.City + ", " + resp.District
 
-	al.ResultAppend(alfred.NewItem(
-		"Location: "+locateSum,
-		locateDetail,
-		locateDetail,
-		locateDetail,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildIPItem("Location: "+locateSum, locateDetail, locateDetail, locateDetail))
 
 	geoSum := strconv.FormatFloat(resp.Lat, 'f', -1, 64) + ", " + strconv.FormatFloat(resp.Lon, 'f', -1, 64)
 	geoDetail := geoSum + " " + resp.Timezone
-	al.ResultAppend(alfred.NewItem(
-		"GEO: "+geoSum,
-		geoDetail,
-		geoSum,
-		geoDetail,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildIPItem("GEO: "+geoSum, geoDetail, geoSum, geoDetail))
 
 	ispDetail := resp.ISP + ", " + resp.ORG
-	al.ResultAppend(alfred.NewItem(
-		"ISP: "+resp.ISP,
-		resp.ORG,
-		resp.ISP,
-		ispDetail,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildIPItem("ISP: "+resp.ISP, resp.ORG, resp.ISP, ispDetail))
 
 	asnDetail := resp.AS + ", " + resp.ASName
-	al.ResultAppend(alfred.NewItem(
-		"ASN: "+resp.ASName,
-		resp.AS,
-		resp.AS,
-		asnDetail,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildIPItem("ASN: "+resp.ASName, resp.AS, resp.AS, asnDetail))
 
-	al.ResultAppend(alfred.NewItem(
-		"Mobile: "+strconv.FormatBool(resp.Mobile),
-		"",
-		"",
-		"",
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildIPItem("Mobile: "+strconv.FormatBool(resp.Mobile), "", "", ""))
 
-	al.ResultAppend(alfred.NewItem(
-		"Proxy: "+strconv.FormatBool(resp.Proxy),
-		"",
-		"",
-		"",
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildIPItem("Proxy: "+strconv.FormatBool(resp.Proxy), "", "", ""))
 
 	al.Output()
+}
+
+func buildIPItem(title, subTitle, arg, auto string) alfred.Item {
+	return alfred.NewItem(title, subTitle, arg, auto, "", "", true, alfred.NewIcon("", "./icons/ip/ip.png"))
 }
 
 func getMyIP() string {

@@ -73,10 +73,7 @@ func TimeAction(ctx *cli.Context, al *alfred.Alfred) {
 
 		if err != nil {
 			log.Println("Parse Time Fail:" + err.Error())
-			al.ResultAppend(alfred.NewItem(
-				"Parse Time Fail, Invalid Format", err.Error(), "", "", "", "default", false, alfred.NewDefaultIcon(),
-			))
-			al.Output()
+			al.ResultAppend(alfred.NewErrorTitleItem("Parse Time Fail, Invalid Format", err.Error())).Output()
 			return
 		}
 	}
@@ -86,49 +83,17 @@ func TimeAction(ctx *cli.Context, al *alfred.Alfred) {
 	weekday := t.Weekday().String()
 	utc := t.UTC().Format("2006-01-02 15:04:05.999999999 -0700 MST")
 
-	al.ResultAppend(alfred.NewItem(
-		"Stamp: "+ts,
-		"",
-		ts,
-		ts,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildDateItem("Stamp: "+ts, "", ts))
 
-	al.ResultAppend(alfred.NewItem(
-		"Day: "+weekday,
-		"",
-		weekday,
-		weekday,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildDateItem("Day: "+weekday, "", weekday))
 
-	al.ResultAppend(alfred.NewItem(
-		"Local: "+local,
-		"",
-		local,
-		local,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildDateItem("Local: "+local, "", local))
 
-	al.ResultAppend(alfred.NewItem(
-		"UTC: "+utc,
-		"",
-		utc,
-		utc,
-		"",
-		"default",
-		true,
-		alfred.NewDefaultIcon(),
-	))
+	al.ResultAppend(buildDateItem("UTC: "+utc, "", utc))
 
 	al.Output()
+}
+
+func buildDateItem(title, subTitle, arg string) alfred.Item {
+	return alfred.NewItem(title, subTitle, arg, arg, "", "", true, alfred.NewIcon("", "./icons/date/clock.png"))
 }

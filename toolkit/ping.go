@@ -47,12 +47,12 @@ func PingAction(ctx *cli.Context, al *alfred.Alfred) {
 		//max := stats.MaxRtt.String()
 		//avg := stats.AvgRtt.String()
 
-		al.ResultAppend(buildIPItem(title, "Host: "+host+"; Sent: "+sent+"; Recv: "+recv+"; Loss: "+loss+"%; RTT: "+rtt, ip)).Output()
+		al.ResultAppend(buildPingItem(title, "Hosts: "+host+"; Sent: "+sent+"; Recv: "+recv+"; Loss: "+loss+"%; RTT: "+rtt, ip)).Output()
 	}
 }
 
-func buildIPItem(title, subTitle, arg string) alfred.Item {
-	return alfred.NewItem(title, subTitle, arg, arg, "", "", true, alfred.NewIcon("", "./icons/ip/ip.png"))
+func buildPingItem(title, subTitle, arg string) alfred.Item {
+	return alfred.NewItem(title, subTitle, arg, arg, "", "", true, alfred.NewIcon("", "./icons/ping/ping.png"))
 }
 
 func dail(host string, n int) (*ping.Statistics, error) {
