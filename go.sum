@@ -9,6 +9,8 @@ github.com/HarryBird/alfred-toolkit-go v0.0.0-20191127174918-5243efe6c39b h1:0Ei
 github.com/HarryBird/alfred-toolkit-go v0.0.0-20191127174918-5243efe6c39b/go.mod h1:2fY9o1t/bzsuZqvi3+DU7yMAfStGbx8WonVFzn9vFvY=
 github.com/HarryBird/alfred-toolkit-go v0.0.0-20191128063955-c6031ba5f6b3 h1:LgXhySnA1Km1RCy1VJVELvg18OgKNNt1aSRi1QvUGfc=
 github.com/HarryBird/alfred-toolkit-go v0.0.0-20191128063955-c6031ba5f6b3/go.mod h1:2fY9o1t/bzsuZqvi3+DU7yMAfStGbx8WonVFzn9vFvY=
+github.com/HarryBird/alfred-toolkit-go v0.0.0-20191128113918-16afd97e76bc h1:L7iVM5exXp/qhrLOqyxhDbfbigcmwYmtKun16E5QoSY=
+github.com/HarryBird/alfred-toolkit-go v0.0.0-20191128113918-16afd97e76bc/go.mod h1:2fY9o1t/bzsuZqvi3+DU7yMAfStGbx8WonVFzn9vFvY=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d h1:U+s90UTSYgptZMwQh2aRr3LuazLJIa+Pg3Kc1ylSYVY=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
 github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1 h1:EGx4pi6eqNxGaHF6qqu48+N2wcFQ5qg5FXgOdqsJ5d8=
