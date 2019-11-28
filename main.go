@@ -51,6 +51,14 @@ func main() {
 				toolkit.IPAction(ctx, al)
 			},
 		},
+		{
+			Name:        "geek",
+			Usage:       "alfred-dev-toolkit geek <query> [column | article | daily]",
+			Description: "Search GeekTime",
+			Action: func(ctx *cli.Context) {
+				toolkit.GeekSearchAction(ctx, al)
+			},
+		},
 	}
 
 	err = app.Run(os.Args)
