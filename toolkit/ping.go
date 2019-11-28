@@ -17,10 +17,7 @@ func PingAction(ctx *cli.Context, al *alfred.Alfred) {
 	log.Println("Args:", args)
 
 	if len(args) == 0 {
-		al.ResultAppend(alfred.NewItem(
-			"Invalid Host", "", "", "", "", "default", false, alfred.NewDefaultIcon(),
-		))
-		al.Output()
+		al.ResultAppend(alfred.NewErrorTitleItem("Invalid Host", "")).Output()
 		return
 	}
 
@@ -30,9 +27,7 @@ func PingAction(ctx *cli.Context, al *alfred.Alfred) {
 
 	stats, err := dail(host, num)
 	if err != nil {
-		al.ResultAppend(alfred.NewItem(
-			"Resolve Host Fail", "Host: "+host, "", "", "", "default", false, alfred.NewDefaultIcon(),
-		))
+		al.ResultAppend(alfred.NewErrorTitleItem("Resolve Host Fail", "Host: "+host)).Output()
 	} else {
 		log.Println("Ping Result:", stats)
 		sent := strconv.Itoa(stats.PacketsSent)
@@ -52,20 +47,12 @@ func PingAction(ctx *cli.Context, al *alfred.Alfred) {
 		//max := stats.MaxRtt.String()
 		//avg := stats.AvgRtt.String()
 
-		al.ResultAppend(alfred.NewItem(
-			title,
-			//"Packet Sent/Recv/Loss: "+sent+"/"+recv+"/"+loss+"%; RTT Min/Avg/Max: "+min+"/"+avg+"/"+max,
-			"Host: "+host+"; Sent: "+sent+"; Recv: "+recv+"; Loss: "+loss+"%; RTT: "+rtt,
-			ip,
-			ip,
-			"",
-			"default",
-			true,
-			alfred.NewDefaultIcon(),
-		))
+		al.ResultAppend(buildIPItem(title, "Host: "+host+"; Sent: "+sent+"; Recv: "+recv+"; Loss: "+loss+"%; RTT: "+rtt, ip)).Output()
 	}
+}
 
-	al.Output()
+func buildIPItem(title, subTitle, arg string) alfred.Item {
+	return alfred.NewItem(title, subTitle, arg, arg, "", "", true, alfred.NewIcon("", "./icons/ip/ip.png"))
 }
 
 func dail(host string, n int) (*ping.Statistics, error) {
