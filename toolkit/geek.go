@@ -108,13 +108,13 @@ func GeekSearchAction(ctx *cli.Context, al *alfred.Alfred) {
 	log.Println("Items:", res)
 
 	for _, item := range res {
-		al.ResultAppend(buildItem(item.Title, item.Subtitle, item.URL))
+		al.ResultAppend(buildGeekItem(item.Title, item.Subtitle, item.URL))
 	}
 
 	al.Output()
 }
 
-func buildItem(title, subTitle, arg string) alfred.Item {
+func buildGeekItem(title, subTitle, arg string) alfred.Item {
 	return alfred.NewItem(title, subTitle, arg, arg, "", "", true, alfred.NewIcon("", "./icons/geektime/read.png"))
 }
 
